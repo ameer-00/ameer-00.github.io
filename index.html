@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ameer Esam Hussein — AI/ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f9ff;
+  --white:#ffffff;
+  --blue:#1a56ff;
+  --blue-light:#e8eeff;
+  --blue-mid:#4f74ff;
+  --navy:#0d1b4b;
+  --text:#1a1f36;
+  --muted:#6b7280;
+  --border:#e2e5f0;
+  --card:#ffffff;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* cursor */
+#cur{position:fixed;width:10px;height:10px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--blue);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.4;transition:opacity .2s}
+
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 64px;
+  background:rgba(248,249,255,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Fira Code',monospace;font-size:14px;
+  color:var(--blue);font-weight:500;text-decoration:none;
+  letter-spacing:.04em;
+}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;font-weight:500;letter-spacing:.02em;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+
+/* hero */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:100px 64px 60px;max-width:1200px;margin:0 auto;
+  gap:80px;
+}
+.hero-left{flex:1;min-width:0}
+.hero-right{flex:0 0 340px;position:relative}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blue-light);color:var(--blue);
+  font-size:12px;font-weight:600;letter-spacing:.08em;
+  padding:6px 14px;border-radius:100px;
+  margin-bottom:28px;
+  opacity:0;animation:up .6s ease forwards .1s;
+}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1{
+  font-size:clamp(44px,6vw,78px);font-weight:800;
+  line-height:1.06;letter-spacing:-.03em;
+  color:var(--navy);margin-bottom:20px;
+  opacity:0;animation:up .6s ease forwards .2s;
+}
+h1 span{color:var(--blue)}
+
+.hero-sub{
+  font-size:17px;color:var(--muted);line-height:1.8;
+  max-width:480px;margin-bottom:40px;
+  opacity:0;animation:up .6s ease forwards .35s;
+}
+
+.hero-btns{
+  display:flex;gap:12px;flex-wrap:wrap;
+  opacity:0;animation:up .6s ease forwards .5s;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;border-radius:8px;
+  font-size:13px;font-weight:600;letter-spacing:.03em;
+  text-decoration:none;transition:all .22s;
+  border:none;cursor:none;font-family:inherit;
+}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:#1240ee;transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,255,.25)}
+.btn-ghost{background:var(--white);color:var(--navy);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}
+
+/* hero right — avatar card */
+.avatar-card{
+  background:var(--white);border-radius:20px;
+  border:1px solid var(--border);
+  padding:36px;
+  box-shadow:0 4px 40px rgba(26,86,255,.07);
+  opacity:0;animation:up .6s ease forwards .55s;
+}
+.avatar-circle{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue) 0%,#6b93ff 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:800;color:#fff;
+  margin:0 auto 20px;letter-spacing:-.02em;
+}
+.av-name{font-size:17px;font-weight:700;text-align:center;color:var(--navy);margin-bottom:4px}
+.av-role{font-size:13px;color:var(--muted);text-align:center;margin-bottom:24px}
+.av-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.av-stat{background:var(--bg);border-radius:10px;padding:14px;text-align:center}
+.av-n{font-size:24px;font-weight:800;color:var(--blue)}
+.av-l{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.av-badge{
+  margin-top:16px;background:var(--blue-light);
+  border-radius:8px;padding:10px 14px;
+  display:flex;align-items:center;gap:8px;
+}
+.av-badge-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s infinite}
+.av-badge-t{font-size:12px;color:var(--blue);font-weight:600}
+
+/* sections */
+.section{max-width:1200px;margin:0 auto;padding:100px 64px}
+
+.sec-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--blue-light);color:var(--blue);
+  font-size:11px;font-weight:700;letter-spacing:.1em;
+  padding:5px 12px;border-radius:100px;
+  text-transform:uppercase;margin-bottom:16px;
+}
+.sec-h{font-size:clamp(30px,3.5vw,44px);font-weight:800;letter-spacing:-.02em;color:var(--navy);margin-bottom:40px;line-height:1.2}
+.sec-h em{font-style:normal;color:var(--blue)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.about-body{font-size:15px;color:var(--muted);line-height:1.9}
+.about-body strong{color:var(--text)}
+.about-body p+p{margin-top:16px}
+
+.skills-wrap{display:flex;flex-direction:column;gap:14px}
+.sk-row{display:flex;align-items:center;gap:14px}
+.sk-name{font-family:'Fira Code',monospace;font-size:12px;color:var(--muted);width:90px;flex-shrink:0}
+.sk-track{flex:1;height:5px;background:var(--blue-light);border-radius:10px;overflow:hidden}
+.sk-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-mid));border-radius:10px;width:0;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+.sk-pct{font-size:11px;color:var(--blue);font-weight:600;width:34px;text-align:right;font-family:'Fira Code',monospace}
+
+/* projects */
+/* tabs */
+.tabs-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.tab{
+  padding:9px 20px;border-radius:100px;
+  font-size:12px;font-weight:600;letter-spacing:.04em;
+  border:1.5px solid var(--border);background:var(--white);
+  color:var(--muted);cursor:none;transition:all .2s;
+}
+.tab:hover{border-color:var(--blue);color:var(--blue)}
+.tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+.proj-grid{display:none;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.proj-grid.on{display:grid}
+
+/* project card — magazine style */
+.pcard{
+  background:var(--white);border-radius:16px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;
+}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(26,86,255,.1)}
+
+.pcard-top{
+  height:120px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.pcard-icon{font-size:40px;position:relative;z-index:1}
+.pcard-num{
+  position:absolute;top:14px;left:16px;
+  font-family:'Fira Code',monospace;font-size:10px;
+  color:rgba(255,255,255,.7);font-weight:500;
+}
+.pcard-body{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column}
+.pcard-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.pcard-desc{font-size:13px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:16px}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+.ptag{font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;background:var(--blue-light);color:var(--blue)}
+.pcard-link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:14px;border-top:1px solid var(--border);
+  font-size:12px;font-weight:600;color:var(--blue);
+  font-family:'Fira Code',monospace;letter-spacing:.03em;
+}
+.pcard-link svg{transition:transform .2s}
+.pcard:hover .pcard-link svg{transform:translate(3px,-3px)}
+
+/* placeholder card */
+.pcard-ph{
+  background:var(--white);border-radius:16px;
+  border:1.5px dashed var(--border);
+  padding:32px 24px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.pcard-ph-title{font-size:14px;font-weight:700;color:var(--muted)}
+.pcard-ph-desc{font-size:12px;color:#b0b8cc;line-height:1.6}
+
+/* contact */
+.contact-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.ccard{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:14px;padding:24px 26px;
+  text-decoration:none;color:var(--navy);
+  transition:all .22s;
+  display:flex;flex-direction:column;gap:6px;
+}
+.ccard:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,86,255,.1)}
+.cc-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.cc-val{font-size:15px;font-weight:700}
+
+/* footer */
+footer{
+  border-top:1px solid var(--border);
+  padding:28px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;color:var(--muted);flex-wrap:wrap;gap:8px;
+}
+
+/* animations */
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:900px){
+  nav{padding:14px 24px}
+  .nav-links{display:none}
+  #hero{flex-direction:column;padding:90px 24px 48px;gap:40px}
+  .hero-right{flex:none;width:100%}
+  .about-grid{grid-template-columns:1fr}
+  .section{padding:72px 24px}
+  footer{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a class="logo" href="#hero">ameer.esam_</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="hero-dot"></span>
+      AI.SPIRE Program · LevelUp Applied AI
+    </div>
+    <h1>Building<br/><span>AI Systems</span><br/>From Scratch</h1>
+    <p class="hero-sub">
+      I'm <strong>Ameer Esam Hussein</strong> — an AI & ML engineering student turning raw data into intelligent systems. From ETL pipelines to neural networks.
+    </p>
+    <div class="hero-btns">
+      <a class="btn btn-blue" href="#projects">View My Work</a>
+      <a class="btn btn-ghost" href="https://github.com/ameer-00" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="avatar-card">
+      <div class="avatar-circle">AE</div>
+      <div class="av-name">Ameer Esam Hussein</div>
+      <div class="av-role">AI & ML Engineering Student</div>
+      <div class="av-stats">
+        <div class="av-stat"><div class="av-n" id="cn1">0</div><div class="av-l">Modules Done</div></div>
+        <div class="av-stat"><div class="av-n" id="cn2">0</div><div class="av-l">Projects</div></div>
+        <div class="av-stat"><div class="av-n" id="cn3">0</div><div class="av-l">Technologies</div></div>
+        <div class="av-stat"><div class="av-n">5</div><div class="av-l">Phases Total</div></div>
+      </div>
+      <div class="av-badge">
+        <div class="av-badge-dot"></div>
+        <span class="av-badge-t">Currently: Module 5 — Machine Learning</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="reveal">
+    <div class="sec-chip">01 · About</div>
+    <h2 class="sec-h">Who I Am &<br/><em>What I Build</em></h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-body">
+      <p>
+        I'm an AI and ML engineering student in the <strong>AI.SPIRE program by LevelUp Applied AI</strong> — a hands-on program focused on building production-ready AI systems from the ground up.
+      </p>
+      <p>
+        My journey started with setting up data pipelines and writing SQL queries, and has progressed through machine learning, deep learning with PyTorch, and building interactive analytics dashboards.
+      </p>
+      <p>
+        I enjoy the full stack of data work: <strong>cleaning messy data, engineering features, training models, and visualizing results</strong>. My goal is to build AI systems that solve real problems — not just run in notebooks.
+      </p>
+      <p>
+        I'm currently in <strong>Phase 4 (Analytics & Visualization)</strong> and working toward deploying full ML pipelines. By the end of the program, I'll have built 12+ production-style projects across the entire AI/ML lifecycle.
+      </p>
+    </div>
+    <div class="skills-wrap" id="skill-list">
+      <div class="sk-row"><span class="sk-name">Python</span><div class="sk-track"><div class="sk-fill" data-w="90"></div></div><span class="sk-pct">90%</span></div>
+      <div class="sk-row"><span class="sk-name">SQL</span><div class="sk-track"><div class="sk-fill" data-w="85"></div></div><span class="sk-pct">85%</span></div>
+      <div class="sk-row"><span class="sk-name">Pandas</span><div class="sk-track"><div class="sk-fill" data-w="82"></div></div><span class="sk-pct">82%</span></div>
+      <div class="sk-row"><span class="sk-name">PyTorch</span><div class="sk-track"><div class="sk-fill" data-w="65"></div></div><span class="sk-pct">65%</span></div>
+      <div class="sk-row"><span class="sk-name">ETL Design</span><div class="sk-track"><div class="sk-fill" data-w="78"></div></div><span class="sk-pct">78%</span></div>
+      <div class="sk-row"><span class="sk-name">Plotly/Dash</span><div class="sk-track"><div class="sk-fill" data-w="72"></div></div><span class="sk-pct">72%</span></div>
+      <div class="sk-row"><span class="sk-name">Git/GitHub</span><div class="sk-track"><div class="sk-fill" data-w="88"></div></div><span class="sk-pct">88%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="reveal">
+    <div class="sec-chip">02 · Work</div>
+    <h2 class="sec-h">Selected<br/><em>Projects</em></h2>
+  </div>
+
+  <div class="tabs-wrap reveal">
+    <button class="tab on" onclick="sw(this,'g1')">Phase 1 — Foundations</button>
+    <button class="tab" onclick="sw(this,'g2')">Phase 2 — ML & Pipelines</button>
+    <button class="tab" onclick="sw(this,'g3')">Phase 3 — SQL & ETL</button>
+    <button class="tab" onclick="sw(this,'g4')">Phase 4 — Analytics</button>
+    <button class="tab" onclick="sw(this,'gu')">Upcoming</button>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div id="g1" class="proj-grid on">
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m1-d1-git-workflows-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#1a56ff,#4f74ff)">
+        <span class="pcard-num">M1 · D1</span>
+        <span class="pcard-icon">⚙️</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Git Workflows & Dev Environment</div>
+        <div class="pcard-desc">Set up a professional development environment and mastered Git workflows — branching, commits, and pull requests as the foundation for every future project.</div>
+        <div class="pcard-tags"><span class="ptag">Git</span><span class="ptag">GitHub</span><span class="ptag">CLI</span><span class="ptag">Dev Setup</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/python-env-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#0d1b4b,#1a56ff)">
+        <span class="pcard-num">M1 · ENV</span>
+        <span class="pcard-icon">🐍</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Python Environment Setup</div>
+        <div class="pcard-desc">Configured a complete Python environment with virtual environments, package management, and Jupyter notebooks ready for data science and ML work.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">venv</span><span class="ptag">Jupyter</span><span class="ptag">pip</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/levelup-applied-ai-aispire-prework-prework-day-1-and-2-aispire-prework-student" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#6b93ff,#1a56ff)">
+        <span class="pcard-num">PRE-WORK</span>
+        <span class="pcard-icon">📚</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Program Prework — Foundations</div>
+        <div class="pcard-desc">Python fundamentals, environment configuration, and introductory AI/ML concepts to prepare for the full AI.SPIRE curriculum.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">AI Fundamentals</span><span class="ptag">Setup</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/engineering-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#1a56ff,#0d1b4b)">
+        <span class="pcard-num">M1 · CORE</span>
+        <span class="pcard-icon">🔧</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Engineering Environment</div>
+        <div class="pcard-desc">Core engineering repository — configuration files, scripts, and project scaffolding used throughout the entire AI.SPIRE curriculum.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">Config</span><span class="ptag">Engineering</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div id="g2" class="proj-grid">
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m2-d2-pipeline-basics-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#1a56ff,#4f74ff)">
+        <span class="pcard-num">M2 · D2</span>
+        <span class="pcard-icon">🔄</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Data Pipeline Basics</div>
+        <div class="pcard-desc">Built foundational data pipelines covering ingestion, transformation, and loading — the backbone of any ML data infrastructure.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">Pandas</span><span class="ptag">ETL</span><span class="ptag">Pipeline</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m2-l2-data-pipeline-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#0d1b4b,#1a56ff)">
+        <span class="pcard-num">M2 · L2</span>
+        <span class="pcard-icon">🗄️</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">ML Data Pipeline</div>
+        <div class="pcard-desc">End-to-end pipeline that cleans, validates, and prepares raw datasets for ML training — including feature engineering and data quality checks.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">Data Cleaning</span><span class="ptag">Feature Engineering</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m2-i2-pytorch-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#6b93ff,#0d1b4b)">
+        <span class="pcard-num">M2 · I2</span>
+        <span class="pcard-icon">🧠</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">PyTorch Neural Networks</div>
+        <div class="pcard-desc">Built and trained neural networks using PyTorch — tensor operations, autograd, and model training loops for supervised learning tasks.</div>
+        <div class="pcard-tags"><span class="ptag">PyTorch</span><span class="ptag">Neural Networks</span><span class="ptag">Deep Learning</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div id="g3" class="proj-grid">
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m3-d3-sql-fundamentals-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#1a56ff,#4f74ff)">
+        <span class="pcard-num">M3 · D3</span>
+        <span class="pcard-icon">🗃️</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">SQL Fundamentals</div>
+        <div class="pcard-desc">Mastered core SQL — complex queries, joins, aggregations, window functions, and database design for analytical workloads.</div>
+        <div class="pcard-tags"><span class="ptag">SQL</span><span class="ptag">PostgreSQL</span><span class="ptag">Database</span><span class="ptag">Analytics</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m3-i3-etl-pipeline-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#0d1b4b,#1a56ff)">
+        <span class="pcard-num">M3 · I3</span>
+        <span class="pcard-icon">⚡</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Production ETL Pipeline</div>
+        <div class="pcard-desc">Extracts from multiple sources, transforms with validation rules, and loads clean data to a database — production-style architecture.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">SQL</span><span class="ptag">ETL</span><span class="ptag">Validation</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m3-s2-time-series-analytics-ameer-00" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#6b93ff,#1a56ff)">
+        <span class="pcard-num">M3 · S2</span>
+        <span class="pcard-icon">📈</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Time Series Analytics</div>
+        <div class="pcard-desc">Trend detection, seasonality analysis, and anomaly identification using rolling statistics and decomposition techniques.</div>
+        <div class="pcard-tags"><span class="ptag">Pandas</span><span class="ptag">Time Series</span><span class="ptag">Statistics</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/ameer-00/SQL-Murder-Mystery" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#1a56ff,#0d1b4b)">
+        <span class="pcard-num">M3 · BONUS</span>
+        <span class="pcard-icon">🔍</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">SQL Murder Mystery</div>
+        <div class="pcard-desc">Solved the classic SQL Murder Mystery — advanced joins and subqueries across tables to identify the perpetrator through data investigation.</div>
+        <div class="pcard-tags"><span class="ptag">SQL</span><span class="ptag">Joins</span><span class="ptag">Subqueries</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div id="g4" class="proj-grid">
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m4-l4-descriptive-analytics-ameer-00-2" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#1a56ff,#4f74ff)">
+        <span class="pcard-num">M4 · L4</span>
+        <span class="pcard-icon">📊</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Descriptive Analytics</div>
+        <div class="pcard-desc">Comprehensive analytics on real-world datasets — summary statistics, distributions, and correlations surfacing actionable business insights.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">Pandas</span><span class="ptag">Matplotlib</span><span class="ptag">Statistics</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/LevelUp-Applied-AI/m4-i4-kpi-dashboard-ameer-00-2" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#0d1b4b,#1a56ff)">
+        <span class="pcard-num">M4 · I4</span>
+        <span class="pcard-icon">🖥️</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Interactive KPI Dashboard</div>
+        <div class="pcard-desc">Interactive dashboard visualizing key business metrics — charts and summary views for data-driven decision making.</div>
+        <div class="pcard-tags"><span class="ptag">Plotly</span><span class="ptag">Dash</span><span class="ptag">KPIs</span><span class="ptag">Visualization</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+    <a class="pcard" href="https://github.com/ameer-00/m4-s2" target="_blank">
+      <div class="pcard-top" style="background:linear-gradient(135deg,#6b93ff,#1a56ff)">
+        <span class="pcard-num">M4 · S2</span>
+        <span class="pcard-icon">🚀</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Analytics Sprint</div>
+        <div class="pcard-desc">Data wrangling, exploratory analysis, and visualization to answer a real business question end-to-end under time constraints.</div>
+        <div class="pcard-tags"><span class="ptag">Python</span><span class="ptag">EDA</span><span class="ptag">Visualization</span></div>
+        <div class="pcard-link">View on GitHub <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="#1a56ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- UPCOMING -->
+  <div id="gu" class="proj-grid">
+    <div class="pcard-ph"><div class="pcard-ph-title">Phase 5 — Machine Learning</div><div class="pcard-ph-desc">Classification, regression, model evaluation and selection — coming soon.</div></div>
+    <div class="pcard-ph"><div class="pcard-ph-title">Phase 6–7 — NLP & Deep Learning</div><div class="pcard-ph-desc">Transformers, NLP pipelines, and language model applications — coming soon.</div></div>
+    <div class="pcard-ph"><div class="pcard-ph-title">Phase 8–9 — RAG & Knowledge Graphs</div><div class="pcard-ph-desc">Vector search and retrieval-augmented generation systems — coming soon.</div></div>
+    <div class="pcard-ph"><div class="pcard-ph-title">Phase 10–11 — Deployment</div><div class="pcard-ph-desc">ML APIs, containers, CI/CD, and production monitoring — coming soon.</div></div>
+    <div class="pcard-ph"><div class="pcard-ph-title">Phase 12 — Capstone</div><div class="pcard-ph-desc">Full end-to-end AI system integrating all program skills — coming soon.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="reveal">
+    <div class="sec-chip">03 · Contact</div>
+    <h2 class="sec-h">Let's<br/><em>Connect</em></h2>
+  </div>
+  <div class="contact-cards reveal">
+    <a class="ccard" href="https://github.com/ameer-00" target="_blank">
+      <span class="cc-label">GitHub</span>
+      <span class="cc-val">ameer-00 ↗</span>
+    </a>
+    <a class="ccard" href="https://github.com/LevelUp-Applied-AI" target="_blank">
+      <span class="cc-label">Program</span>
+      <span class="cc-val">LevelUp Applied AI ↗</span>
+    </a>
+    <div class="ccard">
+      <span class="cc-label">Status</span>
+      <span class="cc-val" style="color:#22c55e">● Open to Opportunities</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Ameer Esam Hussein · AI.SPIRE 2025–2026</span>
+  <span>Built with GitHub Pages</span>
+</footer>
+
+<script>
+/* cursor */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function anim(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.pcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='52px';ring.style.height='52px';ring.style.opacity='.7'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='.4'});
+});
+
+/* tabs */
+function sw(btn,id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.proj-grid').forEach(g=>g.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById(id).classList.add('on');
+}
+
+/* count up */
+function countUp(id,to){
+  const el=document.getElementById(id);let s=null;
+  (function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/1400,1);el.textContent=Math.floor(p*to)+(p>=1?'+':'');if(p<1)requestAnimationFrame(step)})(performance.now());
+}
+setTimeout(()=>{countUp('cn1',4);countUp('cn2',12);countUp('cn3',15)},600);
+
+/* reveal */
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* skill bars */
+const sobs=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting){x.target.querySelectorAll('.sk-fill').forEach(f=>f.style.width=f.dataset.w+'%');sobs.unobserve(x.target)}
+}),{threshold:.3});
+document.querySelectorAll('#skill-list').forEach(el=>sobs.observe(el));
+</script>
+</body>
+</html>
